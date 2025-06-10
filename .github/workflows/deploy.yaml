@@ -49,7 +49,6 @@ jobs:
             }}/${{
               env.IMAGE_NAME
             }} \
-            --no-logs-fetch \
             --project=${{
               env.PROJECT_ID
             }}
