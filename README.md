@@ -107,13 +107,22 @@ gcloud projects add-iam-policy-binding aztek-native-cloud-run-demo \
   --role="roles/cloudbuild.builds.editor" --project aztek-native-cloud-run-demo
 gcloud projects add-iam-policy-binding aztek-native-cloud-run-demo \
   --member="serviceAccount:github-actions-deployer@aztek-native-cloud-run-demo.iam.gserviceaccount.com" \
+  --role="roles/cloudbuild.serviceAgent" --project aztek-native-cloud-run-demo
+gcloud projects add-iam-policy-binding aztek-native-cloud-run-demo \
+  --member="serviceAccount:github-actions-deployer@aztek-native-cloud-run-demo.iam.gserviceaccount.com" \
   --role="roles/viewer" --project aztek-native-cloud-run-demo
 ```
 _Explanation_: Assigns necessary roles (`Cloud Run Admin`,
 `Artifact Registry Writer`, `Service Account User`,
-`Cloud Build Editor`, `Viewer`) to the service account, granting it
-permissions to manage Cloud Run, push images, act on behalf of other
-service accounts, trigger Cloud Builds, and view logs.
+`Cloud Build Editor`, `Cloud Build Service Agent`, `Viewer`) to the
+service account, granting it permissions to manage Cloud Run, push
+images, act on behalf of other service accounts, trigger Cloud
+Builds, and view logs.
+
+_Note_: For production use, it's recommended to adopt a least-privileges
+principal and reduce the above permissions as much as possible. This
+can be achieved by determining exactly what permissions are used
+and then creating a custom role.
 
 ### Generate Service Account Key
 ```bash
